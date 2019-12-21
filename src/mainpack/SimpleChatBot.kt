@@ -23,13 +23,14 @@ class SimpleChatBot : JFrame(), ActionListener {
 
         dialogue = JTextArea()
         dialogue.lineWrap = true
+        dialogue.isEditable = false
         val scrollBar = JScrollPane(dialogue)
         add(BorderLayout.CENTER, scrollBar)
 
         val bp = JPanel()
         bp.layout = BoxLayout(bp, BoxLayout.X_AXIS)
         ai = JCheckBox("AI")
-        //ai.doClick()
+        ai.doClick()
         message = JTextField()
         message.addActionListener(this)
         val enter = JButton("Enter")
@@ -47,7 +48,7 @@ class SimpleChatBot : JFrame(), ActionListener {
     override fun actionPerformed(e: ActionEvent?) {
         if (message.text.trim().length > 0) {
             dialogue.append("me_: ${message.text}\n")
-            dialogue.append("${TITLE_OF_PROGRAM.substring(0,7)}_: ${sbot.sayInReturn (message.text, ai.isSelected)}\n")
+            dialogue.append("${TITLE_OF_PROGRAM.substring(0, 7)}_: ${sbot.sayInReturn(message.text, ai.isSelected)}\n")
         }
         message.text = ""
         message.requestFocusInWindow()

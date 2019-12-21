@@ -1,11 +1,10 @@
 package mainpack
 
-import java.awt.*
-import java.awt.event.*
-import java.lang.Exception
+import java.awt.BorderLayout
+import java.awt.Rectangle
+import java.awt.event.ActionEvent
+import java.awt.event.ActionListener
 import javax.swing.*
-import javax.swing.text.SimpleAttributeSet
-import javax.swing.text.StyledDocument
 
 class SimpleChatBot : JFrame(), ActionListener {
     val TITLE_OF_PROGRAM = "Chatter: simple chatbot"
@@ -15,7 +14,7 @@ class SimpleChatBot : JFrame(), ActionListener {
     var dialogue: JTextArea
     var ai: JCheckBox
     var message: JTextField
-    //var sbot: SimpleBot
+    var sbot: SimpleBot
 
     init {
         title = TITLE_OF_PROGRAM
@@ -32,7 +31,7 @@ class SimpleChatBot : JFrame(), ActionListener {
         ai = JCheckBox("AI")
         //ai.doClick()
         message = JTextField()
-        // message.addActionListener(this)
+        message.addActionListener(this)
         val enter = JButton("Enter")
         enter.addActionListener(this)
         bp.add(ai)
@@ -41,12 +40,14 @@ class SimpleChatBot : JFrame(), ActionListener {
         add(BorderLayout.CENTER, scrollBar)
         add(BorderLayout.SOUTH, bp)
         isVisible = true
+        sbot = SimpleBot()
 
     }
 
     override fun actionPerformed(e: ActionEvent?) {
         if (message.text.trim().length > 0) {
             dialogue.append("me_: ${message.text}\n")
+            dialogue.append("${TITLE_OF_PROGRAM.substring(0,7)}_: ${sbot.sayInReturn (message.text, ai.isSelected)}\n")
         }
         message.text = ""
         message.requestFocusInWindow()
